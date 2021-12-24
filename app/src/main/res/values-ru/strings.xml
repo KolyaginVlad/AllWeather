@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AllWeather</string>
+    <string name="temp">Температура</string>
+    <string name="tempIdent">°C</string>
+    <string name="speedWind">Скорость ветра</string>
+    <string name="meterPerSecond">м/с</string>
+    <string name="humidity">Влажность</string>
+</resources>
