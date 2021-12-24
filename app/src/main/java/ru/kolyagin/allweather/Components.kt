@@ -1,15 +1,15 @@
 package ru.kolyagin.allweather
 
-import android.app.Application
 import dagger.Component
+import javax.inject.Singleton
 
-class App:Application() {
-    override fun onCreate() {
-        super.onCreate()
-
-    }
-}
 @Component
 interface ViewModelComponent {
     fun getMainViewModel(): MainViewModel
+}
+
+@Component
+@Singleton
+interface SingleComponent{
+    fun getRetrofitHelper(): RetrofitHelper
 }

@@ -44,8 +44,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-
-
 @Composable
 fun MainContent(initialIndex: Int, items: List<Weather>) {
     Pager(
