@@ -56,8 +56,13 @@ fun MainContent(initialIndex: Int, items: List<Weather>) {
         itemFraction = 1f,
         initialIndex = initialIndex,
         itemSpacing = 0.dp,
+        overshootFraction = 0.01f,
         contentFactory = { item ->
-            Page(weather = item)
+            if (item.isLoaded){
+                Page(weather = item)
+            }else {
+                EmptyPage(weather = item)
+            }
         }
     )
 }
@@ -67,6 +72,22 @@ fun MainContent(initialIndex: Int, items: List<Weather>) {
 fun DefaultPreview() {
     AllWeatherTheme {
         MainContent(0, items = emptyList())
+    }
+}
+
+@Composable
+fun EmptyPage(weather: Weather){
+    Scaffold(topBar = {
+        TopAppBar(title = { Text(weather.name) }, backgroundColor = Purple700)
+    }) {
+        Box(
+            modifier = Modifier
+                .fillMaxHeight()
+                .fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
+            CircularProgressIndicator()
+        }
     }
 }
 

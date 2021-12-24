@@ -7,5 +7,6 @@ data class Weather(
     val windSpeed: Double,
     val status: String,
     val city: String,
-    val icon: String
+    val icon: String,
+    val isLoaded: Boolean
 )

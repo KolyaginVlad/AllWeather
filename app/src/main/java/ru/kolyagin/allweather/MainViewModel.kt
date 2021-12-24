@@ -6,9 +6,6 @@ import ru.kolyagin.allweather.models.Weather
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor() : ViewModel() {
-    fun change() {
-        items.value = items.value?.subList(0, 2)
-    }
 
     val items = MutableLiveData<List<Weather>>(listOf(
         Weather(
@@ -18,7 +15,8 @@ class MainViewModel @Inject constructor() : ViewModel() {
             10.0,
             "Ясно",
             "Пенза",
-            "https://img2.freepng.ru/20180328/gfe/kisspng-weather-forecasting-computer-icons-meteorology-sun-5abb727a6ffa17.2462013815222339784587.jpg"
+            "https://img2.freepng.ru/20180328/gfe/kisspng-weather-forecasting-computer-icons-meteorology-sun-5abb727a6ffa17.2462013815222339784587.jpg",
+            false
         ),
         Weather(
             "Weatherbit",
@@ -27,7 +25,8 @@ class MainViewModel @Inject constructor() : ViewModel() {
             11.0,
             "Ясно",
             "Пенза",
-            "https://img2.freepng.ru/20180328/gfe/kisspng-weather-forecasting-computer-icons-meteorology-sun-5abb727a6ffa17.2462013815222339784587.jpg"
+            "https://img2.freepng.ru/20180328/gfe/kisspng-weather-forecasting-computer-icons-meteorology-sun-5abb727a6ffa17.2462013815222339784587.jpg",
+            false
         ),
         Weather(
             "AccuWeather",
@@ -36,7 +35,8 @@ class MainViewModel @Inject constructor() : ViewModel() {
             10.2,
             "Ясно",
             "Пенза",
-            "https://img2.freepng.ru/20180328/gfe/kisspng-weather-forecasting-computer-icons-meteorology-sun-5abb727a6ffa17.2462013815222339784587.jpg"
+            "https://img2.freepng.ru/20180328/gfe/kisspng-weather-forecasting-computer-icons-meteorology-sun-5abb727a6ffa17.2462013815222339784587.jpg",
+            false
         ),
         Weather(
             "Tomorrow.io",
@@ -45,7 +45,8 @@ class MainViewModel @Inject constructor() : ViewModel() {
             10.3,
             "Ясно",
             "Пенза",
-            "https://img2.freepng.ru/20180328/gfe/kisspng-weather-forecasting-computer-icons-meteorology-sun-5abb727a6ffa17.2462013815222339784587.jpg"
+            "https://img2.freepng.ru/20180328/gfe/kisspng-weather-forecasting-computer-icons-meteorology-sun-5abb727a6ffa17.2462013815222339784587.jpg",
+            false
         ),
         Weather(
             "WeatherApi",
@@ -54,7 +55,8 @@ class MainViewModel @Inject constructor() : ViewModel() {
             10.5,
             "Ясно",
             "Пенза",
-            "https://img2.freepng.ru/20180328/gfe/kisspng-weather-forecasting-computer-icons-meteorology-sun-5abb727a6ffa17.2462013815222339784587.jpg"
+            "https://img2.freepng.ru/20180328/gfe/kisspng-weather-forecasting-computer-icons-meteorology-sun-5abb727a6ffa17.2462013815222339784587.jpg",
+            false
         ),
         Weather(
             "WeatherTrack",
@@ -63,7 +65,8 @@ class MainViewModel @Inject constructor() : ViewModel() {
             10.7,
             "Ясно",
             "Пенза",
-            "https://img2.freepng.ru/20180328/gfe/kisspng-weather-forecasting-computer-icons-meteorology-sun-5abb727a6ffa17.2462013815222339784587.jpg"
+            "https://img2.freepng.ru/20180328/gfe/kisspng-weather-forecasting-computer-icons-meteorology-sun-5abb727a6ffa17.2462013815222339784587.jpg",
+            false
         )
     ))
 }
