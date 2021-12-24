@@ -54,7 +54,6 @@ fun MainContent(initialIndex: Int, items: List<Weather>) {
             .fillMaxWidth()
             .fillMaxHeight(),
         itemFraction = 1f,
-        overshootFraction = .01f,
         initialIndex = initialIndex,
         itemSpacing = 0.dp,
         contentFactory = { item ->

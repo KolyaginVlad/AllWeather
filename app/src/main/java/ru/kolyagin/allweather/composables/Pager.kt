@@ -41,20 +41,16 @@ fun <T : Any> Pager(
     /*@FloatRange(from = 0.0, to = 1.0)*/
     itemFraction: Float = 1f,
     itemSpacing: Dp = 0.dp,
-    /*@FloatRange(from = 0.0, to = 1.0)*/
-    overshootFraction: Float = .5f,
     onItemSelect: (T) -> Unit = {},
     contentFactory: @Composable (T) -> Unit,
 ) {
     require(initialIndex in 0..items.lastIndex) { "Initial index out of bounds" }
     require(itemFraction > 0f && itemFraction <= 1f) { "Item fraction must be in the (0f, 1f] range" }
-    require(overshootFraction > 0f && itemFraction <= 1f) { "Overshoot fraction must be in the (0f, 1f] range" }
     val scope = rememberCoroutineScope()
     val state = rememberPagerState()
     state.currentIndex = initialIndex
     state.numberOfItems = items.size
     state.itemFraction = itemFraction
-    state.overshootFraction = overshootFraction
     state.itemSpacing = with(LocalDensity.current) { itemSpacing.toPx() }
     state.orientation = orientation
     state.listener = { index -> onItemSelect(items[index]) }
@@ -164,7 +160,6 @@ private class PagerState {
     var currentIndex by mutableStateOf(0)
     var numberOfItems by mutableStateOf(0)
     var itemFraction by mutableStateOf(0f)
-    var overshootFraction by mutableStateOf(0f)
     var itemSpacing by mutableStateOf(0f)
     var itemDimension by mutableStateOf(0)
     var orientation by mutableStateOf(Orientation.Horizontal)
@@ -200,8 +195,8 @@ private class PagerState {
             }
             val itemSideMargin = (dimension - itemDimension) / 2f
             return OffsetLimit(
-                min = -dimension * overshootFraction + itemSideMargin,
-                max = numberOfItems * (itemDimension + itemSpacing) - (1f - overshootFraction) * dimension + itemSideMargin,
+                min = itemSideMargin,
+                max = numberOfItems * (itemDimension + itemSpacing) + itemSideMargin,
             )
         }
 
