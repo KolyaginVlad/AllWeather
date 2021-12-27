@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.updateItems()
-        viewModel.items.observe(this){
+        viewModel.items.observe(this) {
             setContent {
                 AllWeatherTheme {
                     // A surface container using the 'background' color from the theme
@@ -58,9 +58,9 @@ fun MainContent(initialIndex: Int, items: List<Weather>) {
         itemSpacing = 0.dp,
         overshootFraction = 0.01f,
         contentFactory = { item ->
-            if (item.isLoaded){
+            if (item.isLoaded) {
                 Page(weather = item)
-            }else {
+            } else {
                 EmptyPage(weather = item)
             }
         }
@@ -76,7 +76,7 @@ fun DefaultPreview() {
 }
 
 @Composable
-fun EmptyPage(weather: Weather){
+fun EmptyPage(weather: Weather) {
     Scaffold(topBar = {
         TopAppBar(title = { Text(weather.name) }, backgroundColor = Purple700)
     }) {

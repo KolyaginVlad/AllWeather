@@ -1,7 +1,6 @@
 package ru.kolyagin.allweather.di
 
 import dagger.Component
-import ru.kolyagin.allweather.api.OpenWeatherApi
 import ru.kolyagin.allweather.presentation.MainViewModel
 import ru.kolyagin.allweather.room.dao.WeatherDao
 import javax.inject.Singleton

@@ -2,8 +2,6 @@ package ru.kolyagin.allweather.composables
 
 
 import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.SpringSpec
 import androidx.compose.animation.core.calculateTargetValue
 import androidx.compose.animation.splineBasedDecay
 import androidx.compose.foundation.gestures.*
@@ -235,8 +233,12 @@ private class PagerState {
                     val extra = if (remainder > itemDimension / 2f) 1 else 0
                     val lastVisibleIndex =
                         (targetOffset.absoluteValue / itemDimension.toFloat()).toInt() + extra
-                    targetOffset = (lastVisibleIndex * (itemDimension + itemSpacing) * targetOffset.sign)
-                        .coerceIn(0f, (numberOfItems - 1).toFloat() * (itemDimension + itemSpacing))
+                    targetOffset =
+                        (lastVisibleIndex * (itemDimension + itemSpacing) * targetOffset.sign)
+                            .coerceIn(
+                                0f,
+                                (numberOfItems - 1).toFloat() * (itemDimension + itemSpacing)
+                            )
                     dragOffset.animateTo(
 //                        animationSpec = animationSpec,
                         targetValue = targetOffset,

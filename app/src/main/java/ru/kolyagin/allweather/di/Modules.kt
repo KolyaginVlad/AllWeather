@@ -12,7 +12,7 @@ import ru.kolyagin.allweather.room.WeatherDatabase
 import javax.inject.Singleton
 
 @Module
-class ContextModule(private val context: Context){
+class ContextModule(private val context: Context) {
 
     @Provides
     @Singleton
@@ -20,7 +20,7 @@ class ContextModule(private val context: Context){
 }
 
 @Module(includes = [ContextModule::class])
-class DatabaseModule{
+class DatabaseModule {
 
     @Provides
     @Singleton
@@ -32,7 +32,7 @@ class DatabaseModule{
 }
 
 @Module
-class ApiModule{
+class ApiModule {
     private val retrofit = Retrofit.Builder()
         .baseUrl(API_START)
         .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
