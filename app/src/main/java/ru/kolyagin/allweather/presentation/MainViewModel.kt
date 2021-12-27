@@ -1,12 +1,14 @@
 package ru.kolyagin.allweather.presentation
 
+import android.location.Location
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ru.kolyagin.allweather.room.entity.Weather
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor() : ViewModel() {
-    fun updateItems() {
+
+    fun update(location: Location) {
 
     }
 

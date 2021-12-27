@@ -1,6 +1,10 @@
 package ru.kolyagin.allweather.presentation
 
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.provider.Settings
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -20,27 +24,47 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
+import ru.kolyagin.allweather.PERMISSION_ID
 import ru.kolyagin.allweather.R
 import ru.kolyagin.allweather.composables.Pager
 import ru.kolyagin.allweather.di.DaggerViewModelComponent
 import ru.kolyagin.allweather.room.entity.Weather
 import ru.kolyagin.allweather.ui.theme.AllWeatherTheme
 import ru.kolyagin.allweather.ui.theme.Purple700
+import ru.kolyagin.allweather.utils.LocationHelper
+
 
 class MainActivity : ComponentActivity() {
     private var viewModel = DaggerViewModelComponent.create().getMainViewModel()
+    private val locationHelper by lazy { LocationHelper(this, viewModel::update) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.updateItems()
         viewModel.items.observe(this) {
             setContent {
                 AllWeatherTheme {
-                    // A surface container using the 'background' color from the theme
                     Surface(color = MaterialTheme.colors.background) {
                         MainContent(0, items = it)
                     }
                 }
+            }
+        }
+        locationHelper.checkPermissionAndGetLocation()
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == PERMISSION_ID) {
+            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                locationHelper.checkPermissionAndGetLocation()
+            }else {
+                Toast.makeText(this, getString(R.string.turn_on_location), Toast.LENGTH_LONG).show()
+                val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                startActivity(intent)
             }
         }
     }

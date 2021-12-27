@@ -6,4 +6,5 @@
     <string name="speedWind">Скорость ветра</string>
     <string name="meterPerSecond">м/с</string>
     <string name="humidity">Влажность</string>
+    <string name="turn_on_location">Включите доступ к местоположению</string>
 </resources>

@@ -1,18 +1,9 @@
 <resources>
     <string name="app_name" translatable="false">AllWeather</string>
-    <string name="article_title">Title</string>
-    <string name="text">БОГ
-"Профессор в университете задал своим студентам такой вопрос.
-— Всё, что существует, создано Богом?
-Один студент смело ответил:
-— Да, создано Богом.
-— Бог создал всё? — спросил профессор.
-— Да, сэр, — ответил студент.
-</string>
-    <string name="close_caption">Close</string>
     <string name="temp">Temperature</string>
     <string name="tempIdent">°F</string>
     <string name="speedWind">Wind speed</string>
     <string name="meterPerSecond">m/s</string>
     <string name="humidity">Humidity</string>
+    <string name="turn_on_location">Turn on location</string>
 </resources>
