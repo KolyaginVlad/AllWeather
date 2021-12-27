@@ -1,4 +1,4 @@
-package ru.kolyagin.allweather
+package ru.kolyagin.allweather.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -20,13 +20,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
+import ru.kolyagin.allweather.R
 import ru.kolyagin.allweather.composables.Pager
+import ru.kolyagin.allweather.di.DaggerViewModelComponent
 import ru.kolyagin.allweather.room.entity.Weather
 import ru.kolyagin.allweather.ui.theme.AllWeatherTheme
 import ru.kolyagin.allweather.ui.theme.Purple700
 
 class MainActivity : ComponentActivity() {
-    private val viewModel = DaggerViewModelComponent.create().getMainViewModel()
+    private var viewModel = DaggerViewModelComponent.create().getMainViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -2,7 +2,7 @@
 buildscript {
     ext {
         compose_version = '1.0.5'
-        dagger_version = '2.28.3'
+        dagger_version = '2.40.5'
         room_version = "2.4.0"
     }
     repositories {

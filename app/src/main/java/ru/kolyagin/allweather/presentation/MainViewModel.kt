@@ -1,11 +1,11 @@
-package ru.kolyagin.allweather
+package ru.kolyagin.allweather.presentation
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ru.kolyagin.allweather.room.entity.Weather
 import javax.inject.Inject
 
-class MainViewModel @Inject constructor(private val retrofitHelper: RetrofitHelper) : ViewModel() {
+class MainViewModel @Inject constructor() : ViewModel() {
     fun updateItems() {
 
     }
