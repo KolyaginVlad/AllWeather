@@ -1,5 +1,8 @@
-package ru.kolyagin.allweather.models
+package ru.kolyagin.allweather.room.entity
 
+import androidx.room.Entity
+
+@Entity
 data class Weather(
     val name: String,
     val temp: Double,

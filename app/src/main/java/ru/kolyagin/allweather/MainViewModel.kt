@@ -2,10 +2,13 @@ package ru.kolyagin.allweather
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import ru.kolyagin.allweather.models.Weather
+import ru.kolyagin.allweather.room.entity.Weather
 import javax.inject.Inject
 
-class MainViewModel @Inject constructor() : ViewModel() {
+class MainViewModel @Inject constructor(private val retrofitHelper: RetrofitHelper) : ViewModel() {
+    fun updateItems() {
+
+    }
 
     val items = MutableLiveData<List<Weather>>(listOf(
         Weather(

@@ -1,7 +1,6 @@
 package ru.kolyagin.allweather
 
 import android.os.Bundle
-import android.os.Handler
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -22,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import ru.kolyagin.allweather.composables.Pager
-import ru.kolyagin.allweather.models.Weather
+import ru.kolyagin.allweather.room.entity.Weather
 import ru.kolyagin.allweather.ui.theme.AllWeatherTheme
 import ru.kolyagin.allweather.ui.theme.Purple700
 
@@ -31,6 +30,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel.updateItems()
         viewModel.items.observe(this){
             setContent {
                 AllWeatherTheme {
