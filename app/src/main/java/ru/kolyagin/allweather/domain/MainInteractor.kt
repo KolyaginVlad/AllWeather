@@ -1,5 +1,9 @@
 package ru.kolyagin.allweather.domain
 
-interface MainInteractor {
+import android.location.Location
 
+interface MainInteractor {
+    fun setupInteractorOut(out: MainInteractorOut)
+    fun fetchWeather(location: Location)
+    fun getWeatherFromDb()
 }

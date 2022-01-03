@@ -27,19 +27,23 @@ import coil.compose.rememberImagePainter
 import ru.kolyagin.allweather.PERMISSION_ID
 import ru.kolyagin.allweather.R
 import ru.kolyagin.allweather.composables.Pager
+import ru.kolyagin.allweather.di.ContextModule
 import ru.kolyagin.allweather.di.DaggerViewModelComponent
 import ru.kolyagin.allweather.room.entity.Weather
 import ru.kolyagin.allweather.ui.theme.AllWeatherTheme
 import ru.kolyagin.allweather.ui.theme.Purple700
 import ru.kolyagin.allweather.utils.LocationHelper
+import ru.kolyagin.allweather.utils.isNeedToUpdate
+import ru.kolyagin.allweather.utils.updateLastLoginDateAndLang
 
 
 class MainActivity : ComponentActivity() {
-    private var viewModel = DaggerViewModelComponent.create().getMainViewModel()
+    private val viewModel by lazy{ DaggerViewModelComponent.builder().contextModule(ContextModule(this)).build().getMainViewModel()}
     private val locationHelper by lazy { LocationHelper(this, viewModel::update) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel.initItems()
         viewModel.items.observe(this) {
             setContent {
                 AllWeatherTheme {
@@ -49,7 +53,9 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-        locationHelper.checkPermissionAndGetLocation()
+        if (isNeedToUpdate())
+            locationHelper.checkPermissionAndGetLocation()
+        updateLastLoginDateAndLang()
     }
 
     override fun onRequestPermissionsResult(
@@ -139,7 +145,7 @@ fun Page(weather: Weather) {
             Image(
                 painter = rememberImagePainter(data = weather.icon),
                 contentDescription = "icon",
-                modifier = Modifier.size(50.dp)
+                modifier = Modifier.size(100.dp)
             )
             Spacer(modifier = Modifier.size(16.dp))
             Text(
@@ -159,7 +165,7 @@ fun Page(weather: Weather) {
             Spacer(modifier = Modifier.size(4.dp))
             Text(
                 text = stringResource(id = R.string.humidity)
-                        + ": ${weather.humidity * 100}%",
+                        + ": ${weather.humidity}%",
                 style = TextStyle(fontWeight = FontWeight.Bold, color = Color.Gray),
                 fontSize = 26.sp
             )

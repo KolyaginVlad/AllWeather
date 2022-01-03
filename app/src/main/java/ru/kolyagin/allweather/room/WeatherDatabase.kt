@@ -8,7 +8,7 @@ import ru.kolyagin.allweather.DATABASE_NAME
 import ru.kolyagin.allweather.room.dao.WeatherDao
 import ru.kolyagin.allweather.room.entity.Weather
 
-@Database(entities = [Weather::class], version = 1)
+@Database(entities = [Weather::class], version = 1, exportSchema = true)
 abstract class WeatherDatabase : RoomDatabase() {
     abstract fun getWeatherDao(): WeatherDao
 

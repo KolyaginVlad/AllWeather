@@ -3,7 +3,7 @@ package ru.kolyagin.allweather.room.entity
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
+@Entity(tableName = "weather")
 data class Weather(
     @PrimaryKey val name: String,
     val temp: Double,
@@ -12,5 +12,18 @@ data class Weather(
     val status: String,
     val city: String,
     val icon: String,
-    val isLoaded: Boolean
-)
+    var isLoaded: Boolean
+) {
+    companion object {
+        fun getEmptyObjectWithName(name: String) = Weather(
+            name,
+            .0,
+            .0,
+            .0,
+            "",
+            "",
+            "",
+            false
+        )
+    }
+}

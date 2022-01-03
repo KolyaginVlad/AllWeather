@@ -1,3 +1,25 @@
 package ru.kolyagin.allweather.domain
 
-class MainInteractorImpl : MainInteractor
+import android.location.Location
+import io.reactivex.rxjava3.functions.Consumer
+import ru.kolyagin.allweather.data.MainRepository
+
+class MainInteractorImpl(private val repository: MainRepository) : MainInteractor {
+    private lateinit var out: MainInteractorOut
+
+    override fun setupInteractorOut(out: MainInteractorOut) {
+        this.out = out
+    }
+
+    override fun fetchWeather(location: Location) {
+         repository.getWeatherFromApi(location).toList().subscribe(
+            { },
+            { it.printStackTrace() })
+    }
+
+    override fun getWeatherFromDb() {
+        repository.getWeatherFromDb().subscribe(
+            { out.setItems(it) },
+            { it.printStackTrace() })
+    }
+}

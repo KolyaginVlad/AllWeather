@@ -10,6 +10,7 @@ import android.location.Location
 import android.location.LocationManager
 import android.os.Looper
 import android.provider.Settings
+import android.util.Log
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.*
@@ -24,6 +25,7 @@ class LocationHelper(
         LocationServices.getFusedLocationProviderClient(activity)
 
     fun checkPermissionAndGetLocation() {
+        Log.d("location1", "checkPermissionAndGetLocation")
         if (ActivityCompat.checkSelfPermission(
                 activity,
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -33,6 +35,7 @@ class LocationHelper(
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
+            Log.d("location1", "requestPermissions")
             ActivityCompat.requestPermissions(
                 activity, arrayOf(
                     Manifest.permission.ACCESS_FINE_LOCATION,
@@ -46,6 +49,7 @@ class LocationHelper(
     }
 
     private fun isLocationEnabled(): Boolean {
+        Log.d("location1", "isLocationEnabled")
         val locationManager: LocationManager =
             activity.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
@@ -55,7 +59,9 @@ class LocationHelper(
 
     @SuppressLint("MissingPermission")
     private fun getLastLocation() {
+        Log.d("location1", "getLastLocation")
         if (isLocationEnabled()) {
+            Log.d("location1", "LocationEnabled")
             fusedLocationClient.lastLocation.addOnCompleteListener(activity) { task ->
                 val location: Location? = task.result
                 if (location == null) {
@@ -65,6 +71,7 @@ class LocationHelper(
                 }
             }
         } else {
+            Log.d("location1", "LocationNOTEnabled")
             Toast.makeText(
                 activity,
                 activity.getString(R.string.turn_on_location),
@@ -78,6 +85,7 @@ class LocationHelper(
 
     @SuppressLint("MissingPermission")
     private fun requestNewLocationData() {
+        Log.d("location1", "requestNewLocationData")
         val mLocationRequest = LocationRequest()
         mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         mLocationRequest.interval = 0
