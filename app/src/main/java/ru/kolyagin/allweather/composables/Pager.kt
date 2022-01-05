@@ -42,6 +42,7 @@ fun <T : Any> Pager(
     /*@FloatRange(from = 0.0, to = 1.0)*/
     overshootFraction: Float = .5f,
     onItemSelect: (T) -> Unit = {},
+    onPageChanged: (Int) -> Unit = {},
     contentFactory: @Composable (T) -> Unit,
 ) {
     require(initialIndex in 0..items.lastIndex) { "Initial index out of bounds" }
@@ -56,8 +57,8 @@ fun <T : Any> Pager(
     state.itemSpacing = with(LocalDensity.current) { itemSpacing.toPx() }
     state.orientation = orientation
     state.listener = { index -> onItemSelect(items[index]) }
+    state.onPageChanged = onPageChanged
     state.scope = scope
-
     Layout(
         content = {
             items.map { item ->
@@ -168,6 +169,7 @@ private class PagerState {
     var orientation by mutableStateOf(Orientation.Horizontal)
     var scope: CoroutineScope? by mutableStateOf(null)
     var listener: (Int) -> Unit by mutableStateOf({})
+    var onPageChanged: (Int) -> Unit by mutableStateOf({})
     val dragOffset = Animatable(0f)
 
 //    private val animationSpec = SpringSpec<Float>(
@@ -188,6 +190,7 @@ private class PagerState {
             if (index != currentIndex) {
                 currentIndex = index
                 listener(index)
+                onPageChanged(index)
             }
         }
 

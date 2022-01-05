@@ -1,8 +1,6 @@
 package ru.kolyagin.allweather.data
 
 import android.location.Location
-import androidx.compose.ui.text.capitalize
-import androidx.compose.ui.text.toUpperCase
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Observable
@@ -23,7 +21,8 @@ class MainRepositoryImpl(private val weatherDao: WeatherDao) : MainRepository {
         DaggerApiComponent.create().inject(this)
     }
 
-    @Inject lateinit var openWeatherApi: OpenWeatherApi
+    @Inject
+    lateinit var openWeatherApi: OpenWeatherApi
 
     override fun getWeatherFromDb(): Flowable<List<Weather>> =
         weatherDao.getAll().observeOn(Schedulers.io()).subscribeOn(AndroidSchedulers.mainThread())

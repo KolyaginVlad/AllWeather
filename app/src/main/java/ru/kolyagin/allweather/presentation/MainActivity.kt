@@ -20,7 +20,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
@@ -32,13 +31,14 @@ import ru.kolyagin.allweather.di.DaggerViewModelComponent
 import ru.kolyagin.allweather.room.entity.Weather
 import ru.kolyagin.allweather.ui.theme.AllWeatherTheme
 import ru.kolyagin.allweather.ui.theme.Purple700
-import ru.kolyagin.allweather.utils.LocationHelper
-import ru.kolyagin.allweather.utils.isNeedToUpdate
-import ru.kolyagin.allweather.utils.updateLastLoginDateAndLang
+import ru.kolyagin.allweather.utils.*
 
 
 class MainActivity : ComponentActivity() {
-    private val viewModel by lazy{ DaggerViewModelComponent.builder().contextModule(ContextModule(this)).build().getMainViewModel()}
+    private val viewModel by lazy {
+        DaggerViewModelComponent.builder().contextModule(ContextModule(this)).build()
+            .getMainViewModel()
+    }
     private val locationHelper by lazy { LocationHelper(this, viewModel::update) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +48,9 @@ class MainActivity : ComponentActivity() {
             setContent {
                 AllWeatherTheme {
                     Surface(color = MaterialTheme.colors.background) {
-                        MainContent(0, items = it)
+                        MainContent(getPage(), items = it) {
+                            savePage(it)
+                        }
                     }
                 }
             }
@@ -67,7 +69,7 @@ class MainActivity : ComponentActivity() {
         if (requestCode == PERMISSION_ID) {
             if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                 locationHelper.checkPermissionAndGetLocation()
-            }else {
+            } else {
                 Toast.makeText(this, getString(R.string.turn_on_location), Toast.LENGTH_LONG).show()
                 val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
                 startActivity(intent)
@@ -77,16 +79,17 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MainContent(initialIndex: Int, items: List<Weather>) {
+fun MainContent(initialIndex: Int, items: List<Weather>, pageChanged: (Int) -> Unit) {
     Pager(
         items = items,
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight(),
         itemFraction = 1f,
-        initialIndex = initialIndex,
+        initialIndex = initialIndex,//FIXME не работает т.к. при обновлении списка сбрасывает положение, но не активирует функцию сдвига
         itemSpacing = 0.dp,
         overshootFraction = 0.01f,
+        onPageChanged = pageChanged,
         contentFactory = { item ->
             if (item.isLoaded) {
                 Page(weather = item)
@@ -97,13 +100,13 @@ fun MainContent(initialIndex: Int, items: List<Weather>) {
     )
 }
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    AllWeatherTheme {
-        MainContent(0, items = emptyList())
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun DefaultPreview() {
+//    AllWeatherTheme {
+//        MainContent(0, items = emptyList())
+//    }
+//}
 
 @Composable
 fun EmptyPage(weather: Weather) {
