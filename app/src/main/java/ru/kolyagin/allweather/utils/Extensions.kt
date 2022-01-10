@@ -10,7 +10,7 @@ fun Context.isNeedToUpdate(): Boolean =
     getSharedPreferences(SHARED_NAME, Application.MODE_PRIVATE).getLong(
         LAST_LOGIN_DATE,
         0
-    ) + ONE_HOUR > Calendar.getInstance().time.time
+    ) + ONE_HOUR < Calendar.getInstance().time.time
             || getSharedPreferences(SHARED_NAME, Application.MODE_PRIVATE).getString(
         LAST_LANG,
         ""
