@@ -47,46 +47,6 @@ class ApiModule {
         .addConverterFactory(GsonConverterFactory.create())
         .build().create(OpenWeatherApi::class.java)
 
-    @Provides
-    @Singleton
-    fun provideAccuWeatherApi(): AccuWeatherApi = Retrofit.Builder()
-        .baseUrl(ACCU_WEATHER_URL)
-        .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-        .addConverterFactory(GsonConverterFactory.create())
-        .build().create(AccuWeatherApi::class.java)
-
-    @Provides
-    @Singleton
-    fun provideTomorrowIoApi(): TomorrowIoApi = Retrofit.Builder()
-        .baseUrl(TOMORROW_IO_URL)
-        .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-        .addConverterFactory(GsonConverterFactory.create())
-        .build().create(TomorrowIoApi::class.java)
-
-    @Provides
-    @Singleton
-    fun provideWeatherApiApi(): WeatherApiApi = Retrofit.Builder()
-        .baseUrl(WEATHER_API_URL)
-        .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-        .addConverterFactory(GsonConverterFactory.create())
-        .build().create(WeatherApiApi::class.java)
-
-    @Provides
-    @Singleton
-    fun provideWeatherbitApi(): WeatherbitApi = Retrofit.Builder()
-        .baseUrl(WEATHER_BIT_URL)
-        .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-        .addConverterFactory(GsonConverterFactory.create())
-        .build().create(WeatherbitApi::class.java)
-
-    @Provides
-    @Singleton
-    fun provideWeatherTrack(): WeatherTrack = Retrofit.Builder()
-        .baseUrl(WEATHER_TRACK_URL)
-        .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-        .addConverterFactory(GsonConverterFactory.create())
-        .build().create(WeatherTrack::class.java)
-
 }
 
 @Module(includes = [RepositoryModule::class])

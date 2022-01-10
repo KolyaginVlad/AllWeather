@@ -1,10 +1,6 @@
 package ru.kolyagin.allweather.presentation
 
-import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.provider.Settings
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -18,12 +14,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
-import ru.kolyagin.allweather.PERMISSION_ID
 import ru.kolyagin.allweather.R
 import ru.kolyagin.allweather.composables.Pager
 import ru.kolyagin.allweather.di.ContextModule
@@ -60,22 +57,6 @@ class MainActivity : ComponentActivity() {
         updateLastLoginDateAndLang()
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == PERMISSION_ID) {
-            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                locationHelper.checkPermissionAndGetLocation()
-            } else {
-                Toast.makeText(this, getString(R.string.turn_on_location), Toast.LENGTH_LONG).show()
-                val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                startActivity(intent)
-            }
-        }
-    }
 }
 
 @Composable
@@ -128,7 +109,10 @@ fun EmptyPage(weather: Weather) {
 fun Page(weather: Weather) {
     val scrollState = rememberScrollState()
     Scaffold(topBar = {
-        TopAppBar(title = { Text(weather.name) }, backgroundColor = Purple700)
+        TopAppBar(
+            title = { Text(weather.name, fontFamily = FontFamily(Font(R.font.top))) },
+            backgroundColor = Purple700
+        )
     }) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -143,6 +127,7 @@ fun Page(weather: Weather) {
                 style = TextStyle(fontWeight = FontWeight.Bold),
                 fontSize = 36.sp,
                 textAlign = TextAlign.Center,
+                fontFamily = FontFamily(Font(R.font.top))
             )
             Spacer(modifier = Modifier.size(16.dp))
             Image(
@@ -154,7 +139,8 @@ fun Page(weather: Weather) {
             Text(
                 text = weather.status,
                 style = TextStyle(fontWeight = FontWeight.Bold, color = Color.Gray),
-                fontSize = 26.sp
+                fontSize = 26.sp,
+                fontFamily = FontFamily(Font(R.font.top))
             )
             Spacer(modifier = Modifier.size(8.dp))
             Text(
@@ -163,14 +149,16 @@ fun Page(weather: Weather) {
                     id = R.string.meterPerSecond
                 ),
                 style = TextStyle(fontWeight = FontWeight.Bold, color = Color.Gray),
-                fontSize = 26.sp
+                fontSize = 26.sp,
+                fontFamily = FontFamily(Font(R.font.top))
             )
             Spacer(modifier = Modifier.size(4.dp))
             Text(
                 text = stringResource(id = R.string.humidity)
                         + ": ${weather.humidity}%",
                 style = TextStyle(fontWeight = FontWeight.Bold, color = Color.Gray),
-                fontSize = 26.sp
+                fontSize = 26.sp,
+                fontFamily = FontFamily(Font(R.font.top))
             )
             Spacer(modifier = Modifier.weight(1f))
             Text(
@@ -179,6 +167,7 @@ fun Page(weather: Weather) {
                 style = TextStyle(fontWeight = FontWeight.Bold),
                 fontSize = 32.sp,
                 textAlign = TextAlign.Center,
+                fontFamily = FontFamily(Font(R.font.top))
             )
 
         }

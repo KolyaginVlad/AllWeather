@@ -20,19 +20,4 @@ interface WeatherDao {
 
     @Query("SELECT * FROM weather WHERE name = '$OPEN_WEATHER_NAME'")
     fun getOpenWeather(): Single<Weather>
-
-    @Query("SELECT * FROM weather WHERE name = '$WEATHER_BIT_NAME'")
-    fun getWeatherBit(): Single<Weather>
-
-    @Query("SELECT * FROM weather WHERE name = '$WEATHER_API_NAME'")
-    fun getWeatherApi(): Single<Weather>
-
-    @Query("SELECT * FROM weather WHERE name = '$WEATHER_TRACK_NAME'")
-    fun getWeatherTrack(): Single<Weather>
-
-    @Query("SELECT * FROM weather WHERE name = '$ACCU_WEATHER_NAME'")
-    fun getAccuWeather(): Single<Weather>
-
-    @Query("SELECT * FROM weather WHERE name = '$TOMORROW_IO_NAME'")
-    fun getTomorrowIo(): Single<Weather>
 }

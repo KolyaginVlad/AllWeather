@@ -28,7 +28,7 @@ class MainRepositoryImpl(private val weatherDao: WeatherDao) : MainRepository {
         weatherDao.getAll().observeOn(Schedulers.io()).subscribeOn(AndroidSchedulers.mainThread())
 
     override fun getWeatherFromApi(location: Location): Observable<Weather> =
-        Observable.merge(getOpenWeatherObservable(location), Observable.empty())
+        Observable.merge(getOpenWeatherObservable(location), Observable.empty()) //methods of addressing api specify here
             .observeOn(Schedulers.io())
             .subscribeOn(AndroidSchedulers.mainThread())
             .doOnNext { weatherDao.insert(it) }

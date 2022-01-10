@@ -2,6 +2,8 @@ package ru.kolyagin.allweather.composables
 
 
 import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.SpringSpec
 import androidx.compose.animation.core.calculateTargetValue
 import androidx.compose.animation.splineBasedDecay
 import androidx.compose.foundation.gestures.*
@@ -172,10 +174,10 @@ private class PagerState {
     var onPageChanged: (Int) -> Unit by mutableStateOf({})
     val dragOffset = Animatable(0f)
 
-//    private val animationSpec = SpringSpec<Float>(
-//        dampingRatio = Spring.DampingRatioMediumBouncy,
-//        stiffness = Spring.StiffnessMedium,
-//    )
+    private val animationSpec = SpringSpec<Float>(
+        dampingRatio = Spring.DampingRatioMediumBouncy,
+        stiffness = Spring.StiffnessMedium,
+    )
 
     suspend fun snapTo(index: Int) {
         dragOffset.snapTo(index.toFloat() * (itemDimension + itemSpacing))
@@ -243,7 +245,7 @@ private class PagerState {
                                 (numberOfItems - 1).toFloat() * (itemDimension + itemSpacing)
                             )
                     dragOffset.animateTo(
-//                        animationSpec = animationSpec,
+                        animationSpec = animationSpec,
                         targetValue = targetOffset,
                         initialVelocity = -velocity
                     ) {

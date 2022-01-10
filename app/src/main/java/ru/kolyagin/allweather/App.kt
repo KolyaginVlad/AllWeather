@@ -20,11 +20,6 @@ class App : Application() {
         if (isNeedToUpdate()) {
             Observable.just(
                 Weather.getEmptyObjectWithName(OPEN_WEATHER_NAME),
-                Weather.getEmptyObjectWithName(WEATHER_BIT_NAME),
-                Weather.getEmptyObjectWithName(ACCU_WEATHER_NAME),
-                Weather.getEmptyObjectWithName(TOMORROW_IO_NAME),
-                Weather.getEmptyObjectWithName(WEATHER_API_NAME),
-                Weather.getEmptyObjectWithName(WEATHER_TRACK_NAME)
             ).subscribeOn(Schedulers.io())
                 .subscribe {
                     weatherDao.insert(it)
