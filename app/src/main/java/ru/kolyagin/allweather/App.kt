@@ -1,6 +1,9 @@
 package ru.kolyagin.allweather
 
 import android.app.Application
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import ru.kolyagin.allweather.di.ContextModule
@@ -12,6 +15,7 @@ import ru.kolyagin.allweather.utils.isNeedToUpdate
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
+        Firebase.analytics.logEvent(FirebaseAnalytics.Event.APP_OPEN, null)
         val databaseComponent = DaggerDatabaseComponent.builder()
             .contextModule(ContextModule(this))
             .databaseModule(DatabaseModule())

@@ -29,7 +29,6 @@ import ru.kolyagin.allweather.room.entity.Weather
 import ru.kolyagin.allweather.ui.theme.AllWeatherTheme
 import ru.kolyagin.allweather.ui.theme.Purple700
 import ru.kolyagin.allweather.utils.*
-import java.lang.RuntimeException
 
 
 class MainActivity : ComponentActivity() {
@@ -93,7 +92,10 @@ fun MainContent(initialIndex: Int, items: List<Weather>, pageChanged: (Int) -> U
 @Composable
 fun EmptyPage(weather: Weather) {
     Scaffold(topBar = {
-        TopAppBar(title = { Text(weather.name) }, backgroundColor = Purple700)
+        TopAppBar(
+            title = { Text(weather.name, fontFamily = FontFamily(Font(R.font.top))) },
+            backgroundColor = Purple700
+        )
     }) {
         Box(
             modifier = Modifier
