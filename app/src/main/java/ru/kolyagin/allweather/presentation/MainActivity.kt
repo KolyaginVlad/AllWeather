@@ -29,6 +29,7 @@ import ru.kolyagin.allweather.room.entity.Weather
 import ru.kolyagin.allweather.ui.theme.AllWeatherTheme
 import ru.kolyagin.allweather.ui.theme.Purple700
 import ru.kolyagin.allweather.utils.*
+import java.lang.RuntimeException
 
 
 class MainActivity : ComponentActivity() {

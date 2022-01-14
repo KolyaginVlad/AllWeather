@@ -9,7 +9,6 @@ import android.location.Location
 import android.location.LocationManager
 import android.os.Looper
 import android.provider.Settings
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.result.contract.ActivityResultContracts
@@ -25,7 +24,6 @@ class LocationHelper(
         LocationServices.getFusedLocationProviderClient(activity)
 
     fun checkPermissionAndGetLocation() {
-        Log.d("location1", "checkPermissionAndGetLocation")
         if (ActivityCompat.checkSelfPermission(
                 activity,
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -35,22 +33,26 @@ class LocationHelper(
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            Log.d("location1", "requestPermissions")
-            val requestMultiplePermissions = activity.registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()){ permissions ->
-                var isFailed = false
-                permissions.values.forEach {
-                    if (!it){
-                        isFailed = true
+            val requestMultiplePermissions =
+                activity.registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+                    var isFailed = false
+                    permissions.values.forEach {
+                        if (!it) {
+                            isFailed = true
+                        }
+                    }
+                    if (isFailed) {
+                        Toast.makeText(
+                            activity,
+                            activity.getString(R.string.turn_on_location),
+                            Toast.LENGTH_LONG
+                        ).show()
+                        val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                        activity.startActivity(intent)
+                    } else {
+                        checkPermissionAndGetLocation()
                     }
                 }
-                if (isFailed){
-                    Toast.makeText(activity, activity.getString(R.string.turn_on_location), Toast.LENGTH_LONG).show()
-                    val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                    activity.startActivity(intent)
-                } else{
-                    checkPermissionAndGetLocation()
-                }
-            }
             requestMultiplePermissions.launch(
                 arrayOf(
                     Manifest.permission.ACCESS_FINE_LOCATION,
@@ -63,7 +65,6 @@ class LocationHelper(
     }
 
     private fun isLocationEnabled(): Boolean {
-        Log.d("location1", "isLocationEnabled")
         val locationManager: LocationManager =
             activity.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
@@ -73,9 +74,7 @@ class LocationHelper(
 
     @SuppressLint("MissingPermission")
     private fun getLastLocation() {
-        Log.d("location1", "getLastLocation")
         if (isLocationEnabled()) {
-            Log.d("location1", "LocationEnabled")
             fusedLocationClient.lastLocation.addOnCompleteListener(activity) { task ->
                 val location: Location? = task.result
                 if (location == null) {
@@ -85,7 +84,6 @@ class LocationHelper(
                 }
             }
         } else {
-            Log.d("location1", "LocationNOTEnabled")
             Toast.makeText(
                 activity,
                 activity.getString(R.string.turn_on_location),
@@ -99,7 +97,6 @@ class LocationHelper(
 
     @SuppressLint("MissingPermission")
     private fun requestNewLocationData() {
-        Log.d("location1", "requestNewLocationData")
         val mLocationRequest = LocationRequest()
         mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         mLocationRequest.interval = 0

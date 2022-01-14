@@ -1,6 +1,8 @@
 package ru.kolyagin.allweather.domain
 
 import android.location.Location
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.ktx.Firebase
 import ru.kolyagin.allweather.data.MainRepository
 
 class MainInteractorImpl(private val repository: MainRepository) : MainInteractor {
@@ -13,12 +15,12 @@ class MainInteractorImpl(private val repository: MainRepository) : MainInteracto
     override fun fetchWeather(location: Location) {
         repository.getWeatherFromApi(location).toList().subscribe(
             { },
-            { it.printStackTrace() })
+            { Firebase.crashlytics.recordException(it) })
     }
 
     override fun getWeatherFromDb() {
         repository.getWeatherFromDb().subscribe(
             { out.setItems(it) },
-            { it.printStackTrace() })
+            { Firebase.crashlytics.recordException(it) })
     }
 }

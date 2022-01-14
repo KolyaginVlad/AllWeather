@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "4265701139",
+    "project_id": "allweather-6cf42",
+    "storage_bucket": "allweather-6cf42.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:4265701139:android:92a96206447a9233d374e6",
+        "android_client_info": {
+          "package_name": "ru.kolyagin.allweather"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "4265701139-rbkit5kl1knfagbra2jektnhk605i7rn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAT3fHES5GD64-aU2gjs4_mtSqp91XUBIk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "4265701139-rbkit5kl1knfagbra2jektnhk605i7rn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
