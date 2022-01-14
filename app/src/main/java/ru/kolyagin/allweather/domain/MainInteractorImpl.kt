@@ -7,6 +7,7 @@ import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
 import ru.kolyagin.allweather.GET_WEATHER_FROM_API_EVENT
 import ru.kolyagin.allweather.GET_WEATHER_FROM_DATABASE_EVENT
+import ru.kolyagin.allweather.PARAM_LIST
 import ru.kolyagin.allweather.data.MainRepository
 
 class MainInteractorImpl(private val repository: MainRepository) : MainInteractor {
@@ -18,7 +19,7 @@ class MainInteractorImpl(private val repository: MainRepository) : MainInteracto
 
     override fun fetchWeather(location: Location) {
         repository.getWeatherFromApi(location).toList().subscribe(
-            { Firebase.analytics.logEvent(GET_WEATHER_FROM_API_EVENT, bundleOf("list" to it)) },
+            { Firebase.analytics.logEvent(GET_WEATHER_FROM_API_EVENT, bundleOf(PARAM_LIST to it)) },
             { Firebase.crashlytics.recordException(it) })
     }
 
@@ -26,7 +27,7 @@ class MainInteractorImpl(private val repository: MainRepository) : MainInteracto
         repository.getWeatherFromDb().subscribe(
             {
                 out.setItems(it)
-                Firebase.analytics.logEvent(GET_WEATHER_FROM_DATABASE_EVENT, bundleOf("list" to it))
+                Firebase.analytics.logEvent(GET_WEATHER_FROM_DATABASE_EVENT, bundleOf(PARAM_LIST to it))
             },
             { Firebase.crashlytics.recordException(it) })
     }

@@ -7,6 +7,7 @@ const val ONE_HOUR = 1000 * 60 * 60
 
 const val GET_WEATHER_FROM_API_EVENT = "getWeatherFromApiEvent"
 const val GET_WEATHER_FROM_DATABASE_EVENT = "getWeatherFromDatabaseEvent"
+const val PARAM_LIST = "list"
 
 const val OPENWEATHER_API_KEY = "87af9e430e18ed3d99612325416fd8bd"
 const val OPENWEATHER_LANG_RU = "ru"
