@@ -34,7 +34,7 @@ class MainInteractorImplTest {
     @Test
     fun fetchWeather() {
         interactor.fetchWeather(location)
-        verify(repository, times(1)).getWeatherFromDb()
+        verify(repository, never()).getWeatherFromDb()
         verify(repository, times(1)).getWeatherFromApi(location)
     }
 
