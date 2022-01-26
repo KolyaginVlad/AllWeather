@@ -59,6 +59,6 @@ class InteractorModule {
 @Module(includes = [DatabaseModule::class])
 class RepositoryModule {
     @Provides
-    fun provideMainReposytory(weatherDao: WeatherDao): MainRepository =
+    fun provideMainRepository(weatherDao: WeatherDao): MainRepository =
         MainRepositoryImpl(weatherDao)
 }
